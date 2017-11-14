@@ -9,7 +9,7 @@ branches:
 
 env:
   global:
-    - secure: "NrH9YMK7hLXQD63bj2AHc3aEN8GbaXndTc/SXVL0dVfPa4Z//LQehOcrRkjn7GyX/RPY0pNCYPVEErB6kZ2DJ70KSxdtS9OctkH+oGRqGdnfh2AcaOiVcVZZwIp3ZFd6pzH7jn8nNc4lvZvCjv9UteRZ9jO1YWPvhJNUzwK4RFPFuMYANT9w3IV8pVe2JuUO3qMJWgxrb4yI15Yj+kxkpqRr6mHusaAQpu0dzKGvpbIT+B4dzAtCIvkDRwlmNtqObDiFIoyxJsYtAi8ez3SGAO4+eTKJsIQ1nkK2QrqWf2eRndAdsxAd5t8FlHB40befC95LkJhB4AF0uhnqcyjDTBN7faLuCDOzDfCsWwaLkR2xZADC0WAlBxgrifluOZ3NSKc+ArlAA4gCiJ7ES9r18SuEHW2A2RjZVQ7M4RO1lCrtYSEP9Xy9UjKkgWa7GFE+9nk7QKeonijfeD6n6KvB6lldWK+49kUSuDuYl52aOgm0TexL8ciFYYvWXpJ3lYgKasvdEvA93oHHDpk8cJ+1EvMb12V3hAciAxeIhipeQQnS4pQX2co22IhCIKrGzFzzp42H80jqEtrCu/xlTiI4SEX7kvKjMQaHDkpXzSTuXgg4ydyW/5TIlHqaQDRI4ek9IosAutbW+DQ8CBPrfWpskTDg3XZAcgflglFwbFOVVZ4="
+    - secure: "mQs50QSx3e7jUyfmzMnPAFmcOXbI0U+QhD61FVhhCZNyExBjnPccxbYpang6W0a/e5MQWsgfELub/nyESMqJxYH/VNL0LzF1qBSP3P3Aau0rr2L7+gXmcpH9T2DwevA/YraAGa3wvn2IH42gpCLUiBa94gHYmu9FSJwuHJaGcUDEGOHonZf7yy6KWNLIda3P6pUuqfqadSK35WdR5fpIDITVInJrkLakO0Q0HoeIj1e4fCytXo6xnQXzy6cG2rCF/BycajD5V1gFra8wAfUOhlHGQIbstpVXqRUqZ5lPVOCp1JA+u3JRPCz7z5ie++Z+173xCJfi7j6DKkcjKL09SFQovT2koOHIXQqfXsCUsRd4hvbaBEF7Gy14c6+E4NcKoOeDw2SlFiazYS/MLF2Gj2OioTVqk23f2WZyNmOjxMtkFjJcH8dMEU/GFZZ8o+m0VB4S8Qj5Px3UqWifW2rI/dCGC8soleWm6OtS9h2JAj9QWMcogZ4ev6IpHuBQpFu+1XnK89kRLJWxjFxIZtQrrOKLhK3jb3ktvyslsYA4P4BYOxnzZm0XxgZyks/ddEOUGmNGvkid00717g+RPQLUEdPhY9j42f6vhPTJuZd7uuKgdqvuPFycpIZaZu8iizdaPhy82h/g2Ei89ZhFE0vVtO3EQDHw1/pbR7pBWEhnZ3Q="
 
 matrix:
   include:
@@ -18,41 +18,14 @@ matrix:
       env:
       - COVERITY_SCAN_PROJECT_NAME="$TRAVIS_REPO_SLUG"
       - COVERITY_SCAN_BRANCH_PATTERN="master"
-      - COVERITY_SCAN_NOTIFICATION_EMAIL="agievich@gmail.com"
+      - COVERITY_SCAN_NOTIFICATION_EMAIL="liuchao412@gmail.com"
       - COVERITY_SCAN_BUILD_COMMAND_PREPEND="cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FAST=ON"
       - COVERITY_SCAN_BUILD_COMMAND="make"
       script:
       - curl -s 'https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh' | bash || true
-    - os: linux
-      compiler: gcc
-      env: BUILD_TYPE="Release" BUILD_FAST="ON"
-    - os: osx
-      compiler: clang
-      env: BUILD_TYPE="Release" BUILD_FAST="OFF"
-    - os: linux
-      compiler: gcc
-      env: BUILD_TYPE="MemSan" BUILD_FAST="ON"
-    - os: osx
-      compiler: clang
-      env: BUILD_TYPE="Check" BUILD_FAST="OFF"
-    - os: linux
-      compiler: gcc
-      env: BUILD_TYPE="Check" BUILD_FAST="ON"
-    - os: linux
-      compiler: gcc
-      sudo: required
-      env: BUILD_TYPE="Coverage" BUILD_FAST="OFF"
-      install:
-      - sudo apt-get install -y lcov
-      after_success:
-      - lcov -c -i -d src -o coverage_base.info
-      - test/testbee2
-      - lcov -c -d src -o coverage_test.info
-      - lcov -a coverage_base.info -a coverage_test.info -o coverage.info
-      - bash <(curl -s https://codecov.io/bash) -f coverage.info
-
 script: 
-  - mkdir build && cd build 
+  - mkdir build 
+  - cd build
   - cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_FAST=$BUILD_FAST ..
   - make
   - make test

@@ -3,9 +3,8 @@ Bee2: a cryptographic library
 
 ![](img/bee2.png)
 
-[![Build Status](https://travis-ci.org/agievich/bee2.svg?branch=master)](https://travis-ci.org/agievich/bee2)
-[![Coverity Static Analysis](https://scan.coverity.com/projects/8544/badge.svg)](https://scan.coverity.com/projects/agievich-bee2)
-[![Coverage Analysis](https://codecov.io/gh/agievich/bee2/coverage.svg?branch=master)](https://codecov.io/gh/agievich/bee2?branch=master)
+[![Build Status](https://travis-ci.org/liuchao412/bee2.svg?branch=master)](https://travis-ci.org/liuchao412/bee2)
+[![Coverity Static Analysis](https://scan.coverity.com/projects/14333/badge.svg)](https://scan.coverity.com/projects/liuchao412-bee2)
 
 What is Bee2?
 -------------
